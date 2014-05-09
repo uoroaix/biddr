@@ -1,0 +1,30 @@
+!!!
+%html
+  %head
+    %title Biddr
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %nav.navbar.navbar-default{role: "navigation"}
+      .container
+        %a.navbar-brand= link_to "Home", root_path
+        .pull-right
+          - if user_signed_in?
+            Hello 
+            = current_user.full_name
+            &nbsp;
+            |
+            = link_to "My Bids", bids_path
+            |
+            = link_to "Sign Out", destroy_user_session_path, method: :delete
+            |
+            = link_to "Create New Auction", new_auction_path
+          - else
+            = link_to "Sign In", new_user_session_path
+    .container-fluid.col-md-10.col-md-offset-1
+      - if flash[:notice]
+        .alert.alert-success= flash[:notice]
+      - elsif flash[:alert]
+        .alert.alert-danger= flash[:alert]
+      = yield

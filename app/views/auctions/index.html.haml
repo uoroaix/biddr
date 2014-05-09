@@ -1,0 +1,14 @@
+%h1 Welcome to Core Auctions
+
+- @auctions.each do |auction|
+  .well
+    %p= link_to auction.title, auction_path(auction)
+    %p
+      Auction Details:
+      = auction.details.truncate(50)
+    %p
+      Reserve Price: $
+      = auction.reserve_price
+    %p
+      Until:
+      = formatted_date(auction.ends_on)

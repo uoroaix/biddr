@@ -1,0 +1,12 @@
+%h1 My Bids
+%hr
+
+.well
+  - @bids.each do |bid|
+    %p
+      = link_to bid.title, auction_path(bid.auction)
+    %p 
+      You bid $ 
+      = bid.price
+      on
+      = formatted_date(bid.created_at)

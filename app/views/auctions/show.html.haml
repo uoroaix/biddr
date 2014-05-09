@@ -1,0 +1,37 @@
+%h1
+  = @auction.title.capitalize
+%hr
+  .jumbotron
+    .row
+      %p
+        Auction Details:
+        = @auction.details
+        .pull-right
+          %p 
+            Current Bid: $
+            = @auction.current_price
+          %p
+            = @auction.state.split("_").join(" ").capitalize + "!"
+      %p
+        Auction Ends On:
+        = formatted_date(@auction.ends_on)
+
+    .row
+      - if @auction.reserve_not_met? || @auction.published?
+        = simple_form_for [@auction, @bid] do |f|
+          = f.input :price
+          = f.submit "Bid!", class: "btn btn-default"
+
+
+
+%h1 Previous Bids
+%hr      
+  .jumbotron
+    - @bids.each do |bid|
+      .well
+        %p
+          = bid.full_name 
+          bid $
+          = bid.price
+          on
+          = formatted_date(bid.created_at)

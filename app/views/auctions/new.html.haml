@@ -1,0 +1,8 @@
+%h1 Create Your Auction
+
+= simple_form_for @auction do |f|
+  = f.input :title
+  = f.input :details
+  = f.input :ends_on, as: :date, start_year: Date.today.year, end_year: Date.today.year, discard_hour: true, discard_minut: true, order: [:day, :month, :year]
+  = f.input :reserve_price
+  = f.submit "Create Auction", class: "btn btn-info"
